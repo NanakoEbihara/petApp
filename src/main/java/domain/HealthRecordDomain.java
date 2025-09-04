@@ -10,7 +10,9 @@ public class HealthRecordDomain {
     private int petId;
     private Date recordDate;
     private String mealAmount;
-    private Timestamp createdAt;
+    private String memo;
+    
+	private Timestamp createdAt;
     private Timestamp updatedAt;
     private List<HealthRecordItemDomain> items;
 	public int getId() {
@@ -36,6 +38,12 @@ public class HealthRecordDomain {
 	}
 	public void setMealAmount(String mealAmount) {
 		this.mealAmount = mealAmount;
+	}
+    public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 	public Timestamp getCreatedAt() {
 		return createdAt;

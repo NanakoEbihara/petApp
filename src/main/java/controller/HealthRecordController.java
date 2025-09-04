@@ -35,15 +35,28 @@ public class HealthRecordController extends HttpServlet {
         try {
             List<PetDTO> petList = petRegisterService.getPetsByUserId(user.getId());
             req.setAttribute("petList", petList);
-
+         
             int petId = req.getParameter("petId") != null
                     ? Integer.parseInt(req.getParameter("petId"))
                     : (petList.isEmpty() ? 0 : petList.get(0).getId());
+           
+            // 選ばれたペットの名前を取得
+            String petName = "";
+            for (PetDTO pet : petList) {
+                if (pet.getId() == petId) {
+                    petName = pet.getName();
+                    break;
+                }
+            }
+            // JSP に渡す
+            req.setAttribute("petId", petId);
+            req.setAttribute("petName", petName);
 
             HealthRecordDTO todayRecord = healthRecordService.getTodayRecordOnly(petId);
             List<HealthRecordDTO> allRecords = healthRecordService.getAllRecords(petId);
 
             req.setAttribute("petId", petId);
+            req.setAttribute("petName", petName);
             req.setAttribute("todayRecord", todayRecord);
             req.setAttribute("allRecords", allRecords);
             req.setAttribute("todayDate", new java.sql.Date(System.currentTimeMillis()).toString());
@@ -57,6 +70,7 @@ public class HealthRecordController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	req.setCharacterEncoding("UTF-8");
         int petId = Integer.parseInt(req.getParameter("petId"));
 
         try {
@@ -85,6 +99,7 @@ public class HealthRecordController extends HttpServlet {
                 record.setRecordDate(java.sql.Date.valueOf(req.getParameter("recordDate")));
                 record.setMealAmount(req.getParameter("mealAmount"));
                 record.setGenkiLevel(Integer.parseInt(req.getParameter("genkiLevel")));
+                record.setMemo(req.getParameter("memo"));
 
                 List<HealthRecordItemDTO> items = new ArrayList<>();
                 for (String param : req.getParameterMap().keySet()) {
@@ -126,6 +141,7 @@ public class HealthRecordController extends HttpServlet {
                         healthRecordService.updateRecord(record);
                     }
                     record.setGenkiLevel(Integer.parseInt(req.getParameter("genkiLevel_" + record.getId())));
+                    record.setMemo(req.getParameter("memo_" + record.getId()));
                 }
             }
 

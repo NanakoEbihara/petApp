@@ -74,7 +74,7 @@ public class HealthRecordDAO extends BaseDAO {
 
     // --- insert ---
     public int insert(HealthRecordDTO dto) throws SQLException {
-        String sql = "INSERT INTO health_records (pet_id, record_date, meal_amount, genki_level, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        String sql = "INSERT INTO health_records (pet_id, record_date, meal_amount, genki_level, memo, created_at) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
         int recordId = 0;
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -83,6 +83,7 @@ public class HealthRecordDAO extends BaseDAO {
             ps.setDate(2, dto.getRecordDate());
             ps.setString(3, dto.getMealAmount());
             ps.setInt(4, dto.getGenkiLevel());
+            ps.setString(5, dto.getMemo());
             ps.executeUpdate();
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) recordId = rs.getInt(1);
@@ -95,7 +96,7 @@ public class HealthRecordDAO extends BaseDAO {
 
     // --- update ---
     public void update(HealthRecordDTO dto) throws SQLException {
-        String sql = "UPDATE health_records SET record_date=?, meal_amount=?, genki_level=?, updated_at=CURRENT_TIMESTAMP WHERE id=?";
+        String sql = "UPDATE health_records SET record_date=?, meal_amount=?, genki_level=?, memo=?, updated_at=CURRENT_TIMESTAMP WHERE id=?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             conn.setAutoCommit(false);
@@ -103,6 +104,7 @@ public class HealthRecordDAO extends BaseDAO {
             ps.setString(2, dto.getMealAmount());
             ps.setInt(3, dto.getId());
             ps.setInt(4, dto.getGenkiLevel());
+            ps.setString(5,  dto.getMemo());
             ps.executeUpdate();
 
             // itemsは削除して再登録
@@ -156,6 +158,7 @@ public class HealthRecordDAO extends BaseDAO {
         dto.setRecordDate(rs.getDate("record_date"));
         dto.setMealAmount(rs.getString("meal_amount"));
         dto.setGenkiLevel(rs.getInt("genki_level"));
+        dto.setMemo(rs.getString("memo"));
         dto.setCreatedAt(rs.getTimestamp("created_at"));
         dto.setUpdatedAt(rs.getTimestamp("updated_at"));
         return dto;

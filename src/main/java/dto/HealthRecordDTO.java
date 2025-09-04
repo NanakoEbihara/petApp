@@ -10,9 +10,11 @@ public class HealthRecordDTO {
     private Date recordDate;
     private String mealAmount;
     private int genkiLevel;
+    private String memo;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private List<HealthRecordItemDTO> items; // 追加項目
+    
+	private List<HealthRecordItemDTO> items; // 追加項目
 
     // --- getter / setter ---
     public int getId() { return id; }
@@ -29,6 +31,9 @@ public class HealthRecordDTO {
     
     public int getGenkiLevel() { return genkiLevel; }
     public void setGenkiLevel(int genkiLevel) { this.genkiLevel = genkiLevel; }
+    
+    public String getMemo() {return memo;}
+	public void setMemo(String memo) {this.memo = memo;}
 
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }

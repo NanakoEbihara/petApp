@@ -35,7 +35,7 @@ body { font-family: Arial, sans-serif; padding: 20px; }
 <div class="btn-container">
     <a href="${pageContext.request.contextPath}/petRegister" class="card-btn">新しくペットを登録</a>
     <a href="${pageContext.request.contextPath}/PetEditSelect" class="card-btn">ペット情報編集</a>
-    <a href="${pageContext.request.contextPath}/healthRecord" class="card-btn">健康記録追加</a>
+    <a href="${pageContext.request.contextPath}/PetSelect" class="card-btn">健康記録追加・閲覧</a>
 </div>
 </body>
 </html>

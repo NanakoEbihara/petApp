@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+
 
 <html>
 <head>
+	<meta charset="UTF-8">
     <title>ペットの健康記録</title>
     <script>
         // 新しい行を追加する関数
@@ -17,6 +19,7 @@
                     <option value="ml">ml</option>
                     <option value="g">g</option>
                     <option value="個">個</option>
+                    <option value="回">回</option>
                 </select>
                 <button type="button" onclick="this.parentNode.remove()">削除</button><br/>
             `;
@@ -31,7 +34,7 @@
 
 <!-- 新規追加フォーム -->
 <h3>新しい記録を追加</h3>
-<form action="${pageContext.request.contextPath}/healthRecord" method="post">
+<form action="${pageContext.request.contextPath}/healthRecord" method="post" accept-charset="UTF-8">
     <input type="hidden" name="action" value="insert"/>
     <input type="hidden" name="petId" value="${petId}" />
 
@@ -41,6 +44,7 @@
             <th>食事量</th>
             <th>元気レベル</th>
             <th>項目</th>
+            <th>メモ</th>
         </tr>
         <tr>
             <td><input type="date" name="recordDate" value="${todayDate}" required /></td>
@@ -70,7 +74,11 @@
                         <option value="ml">ml</option>
                         <option value="g">g</option>
                         <option value="個">個</option>
+                        <option value="回">回</option>
                     </select>
+             <td>
+                 <input typetype="text" name="memo" placeholder="気になったことを記入"/>
+            </td>
                     <button type="button" onclick="this.parentNode.remove()">削除</button><br/>
                 </div>
             </td>
@@ -83,7 +91,7 @@
 
 <!-- 既存のレコード一覧 -->
 <h3>記録一覧</h3>
-<form action="${pageContext.request.contextPath}/healthRecord" method="post">
+<form action="${pageContext.request.contextPath}/healthRecord" method="post" >
     <input type="hidden" name="action" value="update"/>
     <input type="hidden" name="petId" value="${petId}" />
 
@@ -94,6 +102,7 @@
                 <th>食事量</th>
                 <th>元気レベル</th>
                 <th>項目</th>
+                <th>メモ</th>
                 <th>操作</th>
             </tr>
             <tr>
@@ -137,10 +146,14 @@
                             <option value="ml">ml</option>
                             <option value="g">g</option>
                             <option value="個">個</option>
+                            <option value="回">回</option>
                         </select>
                         <button type="button" onclick="addNewItem(${record.id})">追加</button><br/>
                     </div>
                 </td>
+                <td>
+                 <input type="text" name="memo_${record.id}" value="${record.memo}">
+                 </td>
                 <td>
                     <button type="submit" name="deleteRecordId" value="${record.id}">レコード削除</button>
                 </td>
