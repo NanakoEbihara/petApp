@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.User;
 import dto.HealthRecordDTO;
+import dto.HealthRecordItemDTO;
 import dto.PetDTO;
 import service.HealthRecordService;
 import service.PetRegisterService;
@@ -31,19 +33,14 @@ public class HealthRecordController extends HttpServlet {
         }
 
         try {
-            // ユーザーIDでペット一覧取得
             List<PetDTO> petList = petRegisterService.getPetsByUserId(user.getId());
             req.setAttribute("petList", petList);
 
-            // petIdをリクエストパラメータから取得、なければ最初のペット
             int petId = req.getParameter("petId") != null
                     ? Integer.parseInt(req.getParameter("petId"))
                     : (petList.isEmpty() ? 0 : petList.get(0).getId());
 
-            // 今日のレコードを取得（取得のみ、挿入しない）
             HealthRecordDTO todayRecord = healthRecordService.getTodayRecordOnly(petId);
-
-            // 全レコード取得
             List<HealthRecordDTO> allRecords = healthRecordService.getAllRecords(petId);
 
             req.setAttribute("petId", petId);
@@ -52,7 +49,6 @@ public class HealthRecordController extends HttpServlet {
             req.setAttribute("todayDate", new java.sql.Date(System.currentTimeMillis()).toString());
 
             req.getRequestDispatcher("/jsp/healthRecord.jsp").forward(req, resp);
-
         } catch (SQLException e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "データ取得エラー");
@@ -61,33 +57,78 @@ public class HealthRecordController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
         int petId = Integer.parseInt(req.getParameter("petId"));
 
         try {
+            // アイテム削除
+            String deleteItemIdStr = req.getParameter("deleteItemId");
+            if (deleteItemIdStr != null) {
+                int deleteItemId = Integer.parseInt(deleteItemIdStr);
+                healthRecordService.deleteItem(deleteItemId);
+                resp.sendRedirect(req.getContextPath() + "/healthRecord?petId=" + petId);
+                return;
+            }
+
+            // レコード削除
+            String deleteRecordIdStr = req.getParameter("deleteRecordId");
+            if (deleteRecordIdStr != null) {
+                int deleteRecordId = Integer.parseInt(deleteRecordIdStr);
+                healthRecordService.deleteRecord(deleteRecordId);
+                resp.sendRedirect(req.getContextPath() + "/healthRecord?petId=" + petId);
+                return;
+            }
+
+            String action = req.getParameter("action");
             if ("insert".equals(action)) {
-                // 新規追加
-                String recordDate = req.getParameter("recordDate");
-                String mealAmount = req.getParameter("mealAmount");
+                HealthRecordDTO record = new HealthRecordDTO();
+                record.setPetId(petId);
+                record.setRecordDate(java.sql.Date.valueOf(req.getParameter("recordDate")));
+                record.setMealAmount(req.getParameter("mealAmount"));
+                record.setGenkiLevel(Integer.parseInt(req.getParameter("genkiLevel")));
 
-                HealthRecordDTO newRecord = new HealthRecordDTO();
-                newRecord.setPetId(petId);
-                newRecord.setRecordDate(java.sql.Date.valueOf(recordDate));
-                newRecord.setMealAmount(mealAmount);
-
-                healthRecordService.insertRecord(newRecord);
+                List<HealthRecordItemDTO> items = new ArrayList<>();
+                for (String param : req.getParameterMap().keySet()) {
+                    if (param.startsWith("itemName_new_")) {
+                        String idx = param.split("_")[2];
+                        HealthRecordItemDTO item = new HealthRecordItemDTO();
+                        item.setName(req.getParameter("itemName_new_" + idx));
+                        item.setValue(req.getParameter("itemValue_new_" + idx));
+                        item.setUnit(req.getParameter("itemUnit_new_" + idx));
+                        items.add(item);
+                    }
+                }
+                record.setItems(items);
+                healthRecordService.insertRecord(record);
 
             } else if ("update".equals(action)) {
-                // 更新
                 List<HealthRecordDTO> records = healthRecordService.getAllRecords(petId);
                 for (HealthRecordDTO record : records) {
                     String mealAmount = req.getParameter("mealAmount_" + record.getId());
-                    if (mealAmount != null && !mealAmount.equals(record.getMealAmount())) {
+                    if (mealAmount != null) {
                         record.setMealAmount(mealAmount);
+
+                        List<HealthRecordItemDTO> items = new ArrayList<>();
+                        for (String param : req.getParameterMap().keySet()) {
+                            if (param.startsWith("itemName_" + record.getId() + "_")) {
+                                String idx = param.split("_")[2];
+                                HealthRecordItemDTO item = new HealthRecordItemDTO();
+                                String idParam = "itemId_" + record.getId() + "_" + idx;
+                                if (req.getParameter(idParam) != null) {
+                                    item.setId(Integer.parseInt(req.getParameter(idParam)));
+                                }
+                                item.setName(req.getParameter("itemName_" + record.getId() + "_" + idx));
+                                item.setValue(req.getParameter("itemValue_" + record.getId() + "_" + idx));
+                                item.setUnit(req.getParameter("itemUnit_" + record.getId() + "_" + idx));
+                                items.add(item);
+                            }
+                        }
+                        record.setItems(items);
                         healthRecordService.updateRecord(record);
                     }
+                    record.setGenkiLevel(Integer.parseInt(req.getParameter("genkiLevel_" + record.getId())));
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "データ更新エラー");

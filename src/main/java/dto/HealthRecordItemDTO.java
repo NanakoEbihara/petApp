@@ -1,24 +1,18 @@
 package dto;
 
+import java.sql.Timestamp;
+
 public class HealthRecordItemDTO {
     private int id;
-    private int recordId;   // どの健康記録に紐づくか
-    private String name;    // 項目名（例：食事、元気、嘔吐）
-    private String value;   // 入力値（例：多、普通、少ない、×、〇、数字、自由入力）
-    private String type;    // 入力タイプ（select, text, numberなど）
+    private int recordId;
+    private String name;     // 項目名
+    private String value;    // 入力値
+    private String type;     // text, number, boolean
+    private String unit;     // ml, g, 個, など
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    // 引数なしコンストラクタ
-    public HealthRecordItemDTO() {}
-
-    // 引数ありコンストラクタ
-    public HealthRecordItemDTO(int recordId, String name, String value, String type) {
-        this.recordId = recordId;
-        this.name = name;
-        this.value = value;
-        this.type = type;
-    }
-
-    // --- getters/setters ---
+    // --- getter / setter ---
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -33,4 +27,16 @@ public class HealthRecordItemDTO {
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
-}
+
+    public String getUnit() { return unit; }
+    public void setUnit(String unit) { this.unit = unit; }
+
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
+    public Timestamp getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
+    
+	
+	}
+    

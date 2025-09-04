@@ -1,3 +1,4 @@
+// HealthRecordDAO.java
 package dao;
 
 import java.sql.Connection;
@@ -13,164 +14,150 @@ import dto.HealthRecordItemDTO;
 
 public class HealthRecordDAO extends BaseDAO {
 
-    // --- 1件取得 ---
+    // --- record取得 ---
     public HealthRecordDTO selectById(int id) throws SQLException {
-        String sql = "SELECT * FROM health_records WHERE id = ?";
+        String sql = "SELECT * FROM health_records WHERE id=?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return mapToDTO(rs, conn);
+                    HealthRecordDTO dto = mapToDTO(rs);
+                    dto.setItems(selectItemsByRecordId(id, conn));
+                    return dto;
                 }
             }
         }
         return null;
     }
 
-    // --- ペットIDで全件取得 ---
     public List<HealthRecordDTO> selectByPetId(int petId) throws SQLException {
         List<HealthRecordDTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM health_records WHERE pet_id = ? ORDER BY record_date DESC";
-
+        String sql = "SELECT * FROM health_records WHERE pet_id=? ORDER BY record_date DESC";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setInt(1, petId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(mapToDTO(rs, conn));
+                    HealthRecordDTO dto = mapToDTO(rs);
+                    dto.setItems(selectItemsByRecordId(dto.getId(), conn));
+                    list.add(dto);
                 }
             }
         }
         return list;
     }
 
-    // --- 新規登録 ---
-    public int insert(HealthRecordDTO dto) throws SQLException {
-        int result = 0;
-        String sql = "INSERT INTO health_records (pet_id, record_date, meal_amount, created_at) " +
-                     "VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-
-        try (Connection conn = getConnection()) {
-            conn.setAutoCommit(false);
-
-            try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setInt(1, dto.getPetId());
-                ps.setDate(2, dto.getRecordDate());
-                ps.setString(3, dto.getMealAmount());
-                result = ps.executeUpdate();
-
-                // 自動採番ID取得
-                int recordId = 0;
-                try (ResultSet rsKeys = ps.getGeneratedKeys()) {
-                    if (rsKeys.next()) {
-                        recordId = rsKeys.getInt(1);
-                    }
+    // --- item取得 ---
+    private List<HealthRecordItemDTO> selectItemsByRecordId(int recordId, Connection conn) throws SQLException {
+        List<HealthRecordItemDTO> items = new ArrayList<>();
+        String sql = "SELECT * FROM health_record_items WHERE record_id=? ORDER BY id";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, recordId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    HealthRecordItemDTO item = new HealthRecordItemDTO();
+                    item.setId(rs.getInt("id"));
+                    item.setRecordId(rs.getInt("record_id"));
+                    item.setName(rs.getString("name"));
+                    item.setValue(rs.getString("value"));
+                    item.setType(rs.getString("type"));
+                    item.setUnit(rs.getString("unit"));
+                    item.setCreatedAt(rs.getTimestamp("created_at"));
+                    item.setUpdatedAt(rs.getTimestamp("updated_at"));
+                    items.add(item);
                 }
-
-                // items 登録
-                insertItems(dto.getItems(), recordId, conn);
-
-                conn.commit();
-            } catch (SQLException e) {
-                conn.rollback();
-                throw e;
-            } finally {
-                conn.setAutoCommit(true);
             }
         }
-        return result;
+        return items;
     }
 
-    // --- 更新 ---
-    public int update(HealthRecordDTO dto) throws SQLException {
-        int result = 0;
-        String sql = "UPDATE health_records SET record_date = ?, meal_amount = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
-
-        try (Connection conn = getConnection()) {
+    // --- insert ---
+    public int insert(HealthRecordDTO dto) throws SQLException {
+        String sql = "INSERT INTO health_records (pet_id, record_date, meal_amount, genki_level, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        int recordId = 0;
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             conn.setAutoCommit(false);
-            try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setDate(1, dto.getRecordDate());
-                ps.setString(2, dto.getMealAmount());
-                ps.setInt(3, dto.getId());
-                result = ps.executeUpdate();
+            ps.setInt(1, dto.getPetId());
+            ps.setDate(2, dto.getRecordDate());
+            ps.setString(3, dto.getMealAmount());
+            ps.setInt(4, dto.getGenkiLevel());
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) recordId = rs.getInt(1);
             }
+            insertItems(dto.getItems(), recordId, conn);
+            conn.commit();
+        }
+        return recordId;
+    }
 
-            // items 更新（全削除して再登録）
-            try (Connection conn2 = getConnection()) {
-                deleteItemsByRecordId(dto.getId(), conn);
-                insertItems(dto.getItems(), dto.getId(), conn);
-            }
+    // --- update ---
+    public void update(HealthRecordDTO dto) throws SQLException {
+        String sql = "UPDATE health_records SET record_date=?, meal_amount=?, genki_level=?, updated_at=CURRENT_TIMESTAMP WHERE id=?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            conn.setAutoCommit(false);
+            ps.setDate(1, dto.getRecordDate());
+            ps.setString(2, dto.getMealAmount());
+            ps.setInt(3, dto.getId());
+            ps.setInt(4, dto.getGenkiLevel());
+            ps.executeUpdate();
+
+            // itemsは削除して再登録
+            deleteItemsByRecordId(dto.getId(), conn);
+            insertItems(dto.getItems(), dto.getId(), conn);
 
             conn.commit();
-        } catch (SQLException e) {
-            throw e;
         }
-
-        return result;
     }
 
-    // --- 削除 ---
-    public int delete(int id) throws SQLException {
-        int result = 0;
-
-        try (Connection conn = getConnection()) {
-            conn.setAutoCommit(false);
-            try {
-                // items 削除
-                deleteItemsByRecordId(id, conn);
-
-                // record 削除
-                String sql = "DELETE FROM health_records WHERE id = ?";
-                try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                    ps.setInt(1, id);
-                    result = ps.executeUpdate();
-                }
-
-                conn.commit();
-            } catch (SQLException e) {
-                conn.rollback();
-                throw e;
-            } finally {
-                conn.setAutoCommit(true);
-            }
+    // --- delete ---
+    public void delete(int id) throws SQLException {
+        String sql = "DELETE FROM health_records WHERE id=?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
         }
-        return result;
     }
-
-    // --- ヘルパーメソッド ---
-    private HealthRecordDTO mapToDTO(ResultSet rs, Connection conn) throws SQLException {
-        HealthRecordDTO dto = new HealthRecordDTO();
-        dto.setId(rs.getInt("id"));
-        dto.setPetId(rs.getInt("pet_id"));
-        dto.setRecordDate(rs.getDate("record_date"));
-        dto.setMealAmount(rs.getString("meal_amount"));
-        dto.setCreatedAt(rs.getTimestamp("created_at"));
-        dto.setUpdatedAt(rs.getTimestamp("updated_at"));
-        return dto;
-    }
-
+    
     private void insertItems(List<HealthRecordItemDTO> items, int recordId, Connection conn) throws SQLException {
         if (items == null || items.isEmpty()) return;
-        String sql = "INSERT INTO health_records (name, value, type) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO health_record_items (record_id, name, value, type, unit) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             for (HealthRecordItemDTO item : items) {
-                ps.setString(1, item.getName());
-                ps.setString(2, item.getValue());
-                ps.setString(3, item.getType());
+                ps.setInt(1, recordId);
+                ps.setString(2, item.getName());
+                ps.setString(3, item.getValue());
+                ps.setString(4, item.getType() != null ? item.getType() : "text");
+                ps.setString(5, item.getUnit());
                 ps.addBatch();
             }
             ps.executeBatch();
         }
     }
-
+ // --- items ---
     private void deleteItemsByRecordId(int recordId, Connection conn) throws SQLException {
-        String sql = "DELETE FROM health_records WHERE id = ?";
+        String sql = "DELETE FROM health_record_items WHERE record_id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, recordId);
             ps.executeUpdate();
         }
+    }
+
+
+
+    private HealthRecordDTO mapToDTO(ResultSet rs) throws SQLException {
+        HealthRecordDTO dto = new HealthRecordDTO();
+        dto.setId(rs.getInt("id"));
+        dto.setPetId(rs.getInt("pet_id"));
+        dto.setRecordDate(rs.getDate("record_date"));
+        dto.setMealAmount(rs.getString("meal_amount"));
+        dto.setGenkiLevel(rs.getInt("genki_level"));
+        dto.setCreatedAt(rs.getTimestamp("created_at"));
+        dto.setUpdatedAt(rs.getTimestamp("updated_at"));
+        return dto;
     }
 }

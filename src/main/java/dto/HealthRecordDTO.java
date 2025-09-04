@@ -2,7 +2,6 @@ package dto;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HealthRecordDTO {
@@ -10,21 +9,12 @@ public class HealthRecordDTO {
     private int petId;
     private Date recordDate;
     private String mealAmount;
+    private int genkiLevel;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private List<HealthRecordItemDTO> items; // 追加項目
 
-    // 任意項目（食事量・元気・嘔吐など）をまとめるリスト
-    private List<HealthRecordItemDTO> items = new ArrayList<>();
-
-    // --- constructors ---
-    public HealthRecordDTO() {}
-
-    public HealthRecordDTO(int petId, Date recordDate) {
-        this.petId = petId;
-        this.recordDate = recordDate;
-    }
-
-    // --- getters/setters ---
+    // --- getter / setter ---
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -33,9 +23,12 @@ public class HealthRecordDTO {
 
     public Date getRecordDate() { return recordDate; }
     public void setRecordDate(Date recordDate) { this.recordDate = recordDate; }
-    
+
     public String getMealAmount() { return mealAmount; }
     public void setMealAmount(String mealAmount) { this.mealAmount = mealAmount; }
+    
+    public int getGenkiLevel() { return genkiLevel; }
+    public void setGenkiLevel(int genkiLevel) { this.genkiLevel = genkiLevel; }
 
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }

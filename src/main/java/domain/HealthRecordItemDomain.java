@@ -1,38 +1,65 @@
+// HealthRecordItemDomain.java
 package domain;
 
-import dto.HealthRecordItemDTO;
+import java.sql.Timestamp;
 
 public class HealthRecordItemDomain {
-    private HealthRecordItemDTO dto;  // DTO の型名を修正
+    private int id;
+    private int recordId;
+    private String name;
+    private String value;
+    private String type; // text, number, boolean
+    private String unit; // ml, g, 個
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getRecordId() {
+		return recordId;
+	}
+	public void setRecordId(int recordId) {
+		this.recordId = recordId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public HealthRecordItemDomain(HealthRecordItemDTO dto) {
-        this.dto = dto;
-    }
-
-    public String getName() {
-        return dto.getName();
-    }
-
-    public String getValue() {
-        return dto.getValue();
-    }
-
-    public String getType() {
-        return dto.getType();
-    }
-
-    // 例: 注意値判定
-    public boolean isAlert() {
-        if ("食事".equals(dto.getName()) || "元気".equals(dto.getName())) {
-            return "×".equals(dto.getValue()) || "なし".equals(dto.getValue());
-        }
-        if ("嘔吐".equals(dto.getName())) {
-            return "〇".equals(dto.getValue()); // 嘔吐は〇が注意
-        }
-        return false;
-    }
-
-    public HealthRecordItemDTO getDto() {
-        return dto;
-    }
+    
 }
