@@ -102,9 +102,9 @@ public class HealthRecordDAO extends BaseDAO {
             conn.setAutoCommit(false);
             ps.setDate(1, dto.getRecordDate());
             ps.setString(2, dto.getMealAmount());
-            ps.setInt(3, dto.getId());
-            ps.setInt(4, dto.getGenkiLevel());
-            ps.setString(5,  dto.getMemo());
+            ps.setInt(3, dto.getGenkiLevel());
+            ps.setString(4,  dto.getMemo());
+            ps.setInt(5, dto.getId());
             ps.executeUpdate();
 
             // itemsは削除して再登録

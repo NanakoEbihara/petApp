@@ -25,8 +25,9 @@ body { font-family: Arial, sans-serif; padding: 20px; }
     <h1>ホーム画面</h1>
     <div>
         <span>${user.name} 様ログイン中</span> |
-        <a href="${pageContext.request.contextPath}/logout">ログアウト</a> |
+        <a href="${pageContext.request.contextPath}/logout">ログアウト</a> 
         <a href="${pageContext.request.contextPath}/edit">ユーザー情報編集</a>
+        <a href="/petApp/delete">退会する方はこちら</a>
     </div>
 </div>
 

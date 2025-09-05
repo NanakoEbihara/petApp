@@ -10,8 +10,8 @@ public class HealthRecordDomain {
     private int petId;
     private Date recordDate;
     private String mealAmount;
-    private String memo;
-    
+    private int genkiLevel;
+	private String memo;    
 	private Timestamp createdAt;
     private Timestamp updatedAt;
     private List<HealthRecordItemDomain> items;
@@ -44,6 +44,13 @@ public class HealthRecordDomain {
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+    
+    public int getGenkiLevel() {
+		return genkiLevel;
+	}
+	public void setGenkiLevel(int genkiLevel) {
+		this.genkiLevel = genkiLevel;
 	}
 	public Timestamp getCreatedAt() {
 		return createdAt;

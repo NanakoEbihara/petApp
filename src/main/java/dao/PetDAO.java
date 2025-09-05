@@ -189,4 +189,25 @@ public class PetDAO extends BaseDAO {
         dto.setIsDeleted(rs.getBoolean("is_deleted"));
         return dto;
     }
+
+//ここからが追加分（登録削除機能）
+    public int delete(PetDTO dto) throws SQLException {
+        int result = 0;
+        Connection conn = getConnection();
+        TransactionManager tm = new TransactionManager(conn);
+
+        try {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM pets WHERE id = ?");
+            ps.setInt(1, dto.getId());
+            result = ps.executeUpdate();
+            tm.commit();
+        } catch (SQLException e) {
+            tm.rollback();
+            e.printStackTrace();
+        } finally {
+            tm.close();
+        }
+        return result;
+    }
 }
+
