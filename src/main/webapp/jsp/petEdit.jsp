@@ -25,9 +25,10 @@
     </select><br>
     体重(kg): <input type="text" name="weight" value="${pet.weightKg}"><br>
 
-    <input type="submit" value="確認へ進む">
-</form>
-
+    <input type="submit" value="確認へ進む">    
+</form>   
+    <a href="/petApp/delete?petId=${pet.id}">ペット情報を削除</a>
+    
 <a href="home">キャンセル</a>
 </body>
 </html>
