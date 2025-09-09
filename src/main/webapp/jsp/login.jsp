@@ -7,10 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン画面</title>
-<link rel="stylesheet" type="text/css" href="/petApp/css/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="/petApp/css/login.css" />
 </head>
 
 <body>
+	<div class="container">
+	<form action="/petApp/login" method="post">
 	<h1>ログイン画面</h1>
 	<!-- ログイン失敗時のエラーメッセージの表示 -->
 	<c:if test="${loginError != null}">
@@ -19,7 +21,7 @@
 		</div>
 	</c:if>
 
-	<form action="/petApp/login" method="post">
+	
 		<table>
 			<tr>
 				<th>ユーザーID</th>
@@ -31,9 +33,9 @@
 			</tr>
 		</table>
 		<input type="submit" value="ログイン">
+		
+		<p class="register-link"><a href="/petApp/register">新規会員登録はこちら</a></p>
 	</form>
-	<p>
-		<a href="/petApp/register">新規会員登録はこちら</a>
-	</p>
+	</div>
 </body>
 </html>

@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>変更完了画面</title>
-		<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
+		<link rel="stylesheet"type="text/css" href="/petApp/css/editstyle.css"/>
 	</head>	
 	
 	<body>

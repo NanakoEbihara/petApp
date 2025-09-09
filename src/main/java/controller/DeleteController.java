@@ -16,7 +16,7 @@ import service.UserDeleteService;
 
 
 @WebServlet("/delete")
-public class DeleteContoroller extends HttpServlet {
+public class DeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
    

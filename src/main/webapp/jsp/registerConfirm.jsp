@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>会員登録確認</title>
-	<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
+	<link rel="stylesheet"type="text/css" href="/petApp/css/register.css"/>
 </head>
 
 <body>

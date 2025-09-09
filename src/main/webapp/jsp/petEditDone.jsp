@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ペット情報更新完了</title>
-<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
+<link rel="stylesheet"type="text/css" href="/petApp/css/editstyle.css"/>
 </head>
 <body>
 <h2>ペット情報の更新が完了しました</h2>

@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
     <title>ペットの健康記録</title>
-    <link rel="stylesheet" type="text/css" href="/petApp/css/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="/petApp/css/healthrecord.css"/>
     <script>
         // 新しい行を追加する関数
         function addNewItem(rowId) {

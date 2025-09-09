@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>削除完了画面</title>
-		<link rel="stylesheet" type="text/css" href="/petApp/css/stylesheet.css"/>
+		<link rel="stylesheet" type="text/css" href="/petApp/css/editstyle.css"/>
 	</head>
 	<body>
 		<h1>ペット情報削除完了</h1>

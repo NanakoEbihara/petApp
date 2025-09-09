@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>新規会員登録</title>
-<link rel="stylesheet" type="text/css" href="/petApp/css/stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="/petApp/css/register.css"/>
 </head>
 <body>
 	<h1>新規会員登録</h1>

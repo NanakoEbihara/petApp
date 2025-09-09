@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><title>ペット情報編集</title>
-<link rel="stylesheet" type="text/css" href="/petApp/css/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="/petApp/css/editstyle.css" />
 </head>
 <body>
 <h2>ペット情報編集</h2>
