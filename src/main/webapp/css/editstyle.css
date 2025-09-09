@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/* ページ全体背景 */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #a8dadc, #f1faee);
+    color: #1d3557;
+    min-height: 100vh;
+}
+
+/* ページ見出し */
+h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding: 15px 0;
+    background-color: #e0f7fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* フォーム全体をカード風に */
+form {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    background-color: #f8ffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* フォーム内ラベルと入力 */
+form input[type="text"],
+form input[type="date"],
+form select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* フォームの送信ボタン */
+form input[type="submit"] {
+    background-color: #1d3557;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #457b9d;
+}
+
+/* テーブル全体をカード風に */
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    border-collapse: collapse;
+    background-color: #f8ffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ヘッダーセル */
+th {
+    background-color: #457b9d;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+/* データセル */
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* リンクをボタン風に */
+a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #1d3557;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+a:hover {
+    background-color: #457b9d;
+}
+
+/* エラーメッセージ */
+p[style*="color:red"] {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}

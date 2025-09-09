@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ペット編集選択</title>
+<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
 </head>
 <body>
 <h2>編集するペットを選択してください</h2>

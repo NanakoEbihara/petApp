@@ -6,21 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>ホーム画面</title>
-<style>
-body { font-family: Arial, sans-serif; padding: 20px; }
-.header { display: flex; justify-content: space-between; align-items: center; }
-.btn-container { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
-.card-btn {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 30px; width: 200px; height: 100px;
-    background-color: #f0f0f0; border-radius: 10px;
-    text-decoration: none; color: #333; font-weight: bold; font-size: 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s;
-}
-.card-btn:hover { background-color: #d0eaff; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-</style>
+<link rel="stylesheet"type="text/css" href="/petApp/css/home.css"/>
+
 </head>
 <body>
+
 <div class="header">
     <h1>ホーム画面</h1>
     <div>
@@ -38,5 +28,8 @@ body { font-family: Arial, sans-serif; padding: 20px; }
     <a href="${pageContext.request.contextPath}/PetEditSelect" class="card-btn">ペット情報編集</a>
     <a href="${pageContext.request.contextPath}/PetSelect" class="card-btn">健康記録追加・閲覧</a>
 </div>
+
+<div class="big-image"></div>
+
 </body>
 </html>

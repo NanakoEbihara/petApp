@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ペット登録確認</title>
+    <link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
 </head>
 <body>
 <h2>登録内容の確認</h2>

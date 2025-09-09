@@ -19,7 +19,7 @@
 			</div>
 		</c:if>
 		<h2>ペット情報</h2>
-		<form action="/petApp/delete" method="post">
+		<form action="/petApp/petdelete" method="post">
 			<table border="1">
 				<tr>
 					<th>ペットID</th>

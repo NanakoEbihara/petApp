@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>ペット情報編集</title></head>
+<head><meta charset="UTF-8"><title>ペット情報編集</title>
+<link rel="stylesheet" type="text/css" href="/petApp/css/stylesheet.css" />
+</head>
 <body>
 <h2>ペット情報編集</h2>
 
@@ -27,7 +29,7 @@
 
     <input type="submit" value="確認へ進む">    
 </form>   
-    <a href="/petApp/delete?petId=${pet.id}">ペット情報を削除</a>
+    <a href="/petApp/petdelete?petId=${pet.id}">ペット情報を削除</a>
     
 <a href="home">キャンセル</a>
 </body>

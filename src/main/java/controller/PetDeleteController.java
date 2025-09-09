@@ -14,7 +14,7 @@ import dao.PetDAO;
 import dto.PetDTO;
 import service.PetDeleteService;
 
-@WebServlet("/delete")
+@WebServlet("/petdelete")
 public class PetDeleteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

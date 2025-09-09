@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  background-color: #a0d8f0;  /* 水色 */
+  /* 全体を中央寄せにする例 */
+  text-align: center;
+}
+
+/* 見出しの色を青に */
+h1 {
+  color: #3366cc;
+  text-align: right; /* みぎ寄せ */
+}
+
+/* editページ用 */
+body
+
+	h1
+.bg_pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffe9a7;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a8dadc;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
+}
+
+/* 日ごとの健康記録カード */
+.health-card {
+    background-color: #f0f8ff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.health-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* 日付見出し */
+.health-card h3 {
+    margin: 0 0 10px 0;
+    color: #1d3557;
+}
+
+/* 表 */
+.health-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.health-card th, .health-card td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.health-card th {
+    background-color: #f1faee;
+    color: #1d3557;
+}
+
+.health-card tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 編集・追加ボタン */
+.health-card .btn-action {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.health-card .btn-action button {
+    background-color: #457b9d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.health-card .btn-action button:hover {
+    background-color: #1d3557;
+    transform: translateY(-2px);
+}
+
+/* メモや追加項目を強調 */
+.health-card .memo {
+    background-color: #fff3e0;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+    display: inline-block;
+    font-size: 0.9em;
+    color: #333;
+}
+
+

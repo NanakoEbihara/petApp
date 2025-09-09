@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ペット登録</title>
+<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
 </head>
 <body>
 <h2>ペット登録</h2>

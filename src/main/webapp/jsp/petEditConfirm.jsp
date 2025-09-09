@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ペット情報編集確認</title>
+<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
 </head>
 <body>
 <h2>ペット情報編集確認</h2>

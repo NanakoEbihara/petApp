@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>健康記録 ペット選択</title>
+<link rel="stylesheet"type="text/css" href="/petApp/css/stylesheet.css"/>
 </head>
 <body>
 <h2>健康記録を表示・追加するペットを選択してください</h2>
