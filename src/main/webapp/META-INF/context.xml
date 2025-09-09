@@ -1,0 +1,8 @@
+<Context>
+    <Resource name="jdbc/mydb" auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="20" maxIdle="10" maxWaitMillis="-1"
+              username="postgres" password="password"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost:5433/pet_app"/>
+</Context>

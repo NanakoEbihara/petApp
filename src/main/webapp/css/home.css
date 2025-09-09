@@ -1,0 +1,96 @@
+/* 背景パターン */
+@charset "UTF-8";
+.bg_pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffe9a7;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a8dadc;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
+}
+
+
+.header div {
+  margin-top: 10px;
+}
+
+h1 {
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+h2 {
+  margin-top: 30px;
+  color: #1d3557;
+  text-align: center;
+}
+
+/* ホーム画面ボタン */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.card-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 120px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #1d3557;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 0 6px #c0d6e4; /* 影で浮いてる感 */
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+/* ホバーで浮き上がる */
+.card-btn:hover {
+  background-color: #d0eaff;
+  box-shadow: 0 8px #c0d6e4;
+  transform: translateY(-2px);
+}
+
+/* クリックで押し込まれる */
+.card-btn:active {
+  box-shadow: 0 3px #c0d6e4;
+  transform: translateY(3px);
+}
+
+.big-image {
+    position: fixed;
+    bottom: 0;   /* 下から配置 */
+    right: 0;    /* 右に配置 */
+    width: 450px;   /* 好きなサイズに調整 */
+    height: 100%;   /* 画面の縦いっぱい */
+    background-image: url('/petApp/pic/dog.webp'); /* ← ここにURL */
+    background-repeat: no-repeat;
+    background-size: contain; /* 画像を縮小して収める */
+    background-position: right bottom;
+    z-index: -1; /* 後ろに配置 */
+}
