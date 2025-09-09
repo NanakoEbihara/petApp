@@ -1,0 +1,123 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+/* 全体背景 */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #a8dadc, #f1faee);
+    min-height: 100vh;
+    color: #1d3557;
+}
+
+/* ページ見出し */
+h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding: 15px 0;
+    background-color: #e0f7fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* ペットリスト */
+ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto; /* 中央寄せ */
+}
+
+ul li {
+    background-color: #f8ffff;
+    margin-bottom: 12px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+ul li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ペットの名前 */
+ul li span.pet-name {
+    font-weight: 700;
+    font-size: 18px;
+    color: #1d3557;
+    position: relative;
+    padding-left: 30px; /* アイコンのスペース確保 */
+}
+
+/* 背景に丸み＋水色グラデーションを追加 */
+ul li span.pet-name {
+    background: linear-gradient(90deg, #a8dadc, #f0f8ff);
+    border-radius: 8px;
+    padding: 4px 10px 4px 30px; /* 左はアイコン用 */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+
+
+
+/* リンクボタン風 */
+ul li a {
+    background-color: #1d3557;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+ul li a:hover {
+    background-color: #457b9d;
+}
+
+/* メッセージ */
+p {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+/* ホームリンク */
+p a {
+    color: #1d3557;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+p a:hover {
+    border-bottom: 1px solid #1d3557;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 26px;
+    }
+
+    ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    ul li a {
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+/* 全体の背景 */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #a8dadc, #f1faee);
+  min-height: 100vh;
+}
+
+/* ページタイトル */
+h2 {
+  text-align: center;
+  color: #1d3557;
+  margin-bottom: 20px;
+}
+
+/* サブタイトル */
+h3 {
+  color: #1d3557;
+  margin-bottom: 10px;
+}
+
+/* 記録一覧テーブル */
+#recordList {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+#recordList th,
+#recordList td {
+  padding: 6px 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 最後の行のボーダーを消す */
+#recordList tr:last-child td {
+  border-bottom: none;
+}
+
+/* tdの中身を横並びに */
+#recordList td {
+  display: flex;
+  justify-content: center; /* 中央揃え */
+  gap: 10px; /* 列間の隙間 */
+  align-items: center; /* 高さを揃える */
+}
+
+/* td内のinputは横幅均等 */
+#recordList td input {
+  flex: 1; /* 横幅均等 */
+  padding: 5px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* 新しく追加の入力欄は既存のまま */
+input[type="text"], input[type="date"], select {
+  width: 90%;
+  padding: 5px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* ボタン */
+button, input[type="submit"] {
+  background-color: #1d3557;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 4px;
+  transition: 0.2s;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #457b9d;
+}
+
+/* 「項目を追加」ボタン */
+button[type="button"] {
+  margin-top: 8px;
+}
+
+/* 新しい項目の入力欄 */
+#itemsContainer_new div,
+[id^="itemsContainer_"] div {
+  margin-bottom: 6px;
+}
+
+/* ページ内リンクや補助テキスト */
+p {
+  margin-top: 8px;
+  text-align: right;
+}
+
+
