@@ -44,6 +44,6 @@
 		</table>
 		<input type="submit" value="変更する（確認画面へ）">		
 	</form>
-	<p><a href="/petApp/jsp/login.jsp">トップ画面へ戻る</a></p>
+	<p><a href="/petApp/jsp/home.jsp">ホームへ戻る</a></p>
 </body>
 </html>

@@ -36,5 +36,6 @@
 			</table>
 			<input type="submit" value="退会する">
 		</form>
+			<p><a href="/petApp/jsp/home.jsp">ホームへ戻る</a></p>
 	</body>
 </html>
