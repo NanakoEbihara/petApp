@@ -10,6 +10,39 @@
   opacity: 0.2;
   z-index: -1;
 }
+/* ユーザー情報エリア */
+.header .user-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 20px;
+  border: 2px solid #1d3557;
+  border-radius: 30px;
+  background: #fff;
+  color: #1d3557;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.header .user-info span {
+  font-weight: 700;
+  color: #1d3557;
+}
+
+.header .user-info a {
+  color: #457b9d;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  font-weight: 500;
+}
+
+.header .user-info a:hover {
+  color: #e63946;
+  transform: translateY(-1px);
+}
 
 /* ヘッダー */
 .header {

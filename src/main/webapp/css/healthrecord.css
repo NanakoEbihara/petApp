@@ -9,75 +9,57 @@ body {
   min-height: 100vh;
 }
 
-/* ページタイトル */
-h2 {
-  text-align: center;
+/* タイトル */
+h2, h3 {
   color: #1d3557;
-  margin-bottom: 20px;
 }
 
-/* サブタイトル */
-h3 {
-  color: #1d3557;
-  margin-bottom: 10px;
-}
-
-/* 記録一覧テーブル */
-#recordList {
+/* テーブル全体 */
+table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 15px;
   background-color: #fff;
+  border-radius: 10px; /* 丸角 */
+  overflow: hidden;
 }
 
-#recordList th,
-#recordList td {
+/* th */
+th {
+  background-color: #457b9d;
+  color: #fff;
   padding: 6px 8px;
   text-align: center;
+}
+
+/* td */
+td {
+  padding: 6px 8px;
   border-bottom: 1px solid #ddd;
+  vertical-align: top;
 }
 
-/* 最後の行のボーダーを消す */
-#recordList tr:last-child td {
-  border-bottom: none;
-}
-
-/* tdの中身を横並びに */
-#recordList td {
+/* td内のdivで横並び */
+td div {
   display: flex;
-  justify-content: center; /* 中央揃え */
-  gap: 10px; /* 列間の隙間 */
-  align-items: center; /* 高さを揃える */
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
 }
 
-/* td内のinputは横幅均等 */
-#recordList td input {
-  flex: 1; /* 横幅均等 */
-  padding: 5px 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* input/select/button 丸角 */
+input[type="text"], input[type="date"], select, button, input[type="submit"] {
+  border-radius: 6px;
+  padding: 5px 8px;
   font-size: 14px;
-}
-
-/* 新しく追加の入力欄は既存のまま */
-input[type="text"], input[type="date"], select {
-  width: 90%;
-  padding: 5px 6px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
 }
 
-/* ボタン */
+/* ボタン共通 */
 button, input[type="submit"] {
   background-color: #1d3557;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
+  color: #fff;
   cursor: pointer;
-  font-size: 14px;
-  margin-top: 4px;
   transition: 0.2s;
 }
 
@@ -85,21 +67,27 @@ button:hover, input[type="submit"]:hover {
   background-color: #457b9d;
 }
 
-/* 「項目を追加」ボタン */
+/* 「項目を追加」ボタンは少し上マージン */
 button[type="button"] {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
-/* 新しい項目の入力欄 */
-#itemsContainer_new div,
-[id^="itemsContainer_"] div {
-  margin-bottom: 6px;
+/* ホームリンク（ボタンと同じ大きさ） */
+a.home-link {
+  display: inline-block;
+  padding: 5px 8px;     /* ボタンと同じ */
+  font-size: 14px;      /* ボタンと同じ */
+  border-radius: 6px;
+  background-color: #1d3557;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 6px;      /* 項目を追加ボタンと同じ */
+  transition: 0.2s;
 }
 
-/* ページ内リンクや補助テキスト */
-p {
-  margin-top: 8px;
-  text-align: right;
+a.home-link:hover {
+  background-color: #457b9d;
 }
+
 
 

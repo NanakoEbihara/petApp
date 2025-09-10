@@ -13,7 +13,7 @@
 
 <div class="header">
     <h1>ホーム画面</h1>
-    <div>
+    <div class="user-info">
         <span>${user.name} 様ログイン中</span> |
         <a href="${pageContext.request.contextPath}/logout">ログアウト</a> 
         <a href="${pageContext.request.contextPath}/edit">ユーザー情報編集</a>
